@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHolder> {
-    List<Movie>movieList = new ArrayList<>();
+    public List <Movie>movieList = new ArrayList<>();
 
     public MovieRecyclerViewAdapter(List<Movie> movieList) {
         this.movieList = movieList;
@@ -43,30 +43,51 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
         holder.title.setText(movieList.get(position).getTitle());
         holder.genre.setText(movieList.get(position).getGenre());
         holder.price.setText(movieList.get(position).getPrice());
-        setBoxArt(holder, position);
+        holder.boxArt.setImageDrawable(movieList.get(position).getPoster(holder.boxArt.getContext()));
 
         holder.movieCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), MovieDetail.class);
-                intent.putExtra("id", movieList.get(position).getId());
+                intent.putExtra("title", holder.title.getText().toString());
                 view.getContext().startActivity(intent);
+
             }
         });
 
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cart.getShoppingCart().addItem(movieList.get(position));
-                Toast.makeText(view.getContext(), "Added to Cart!", Toast.LENGTH_SHORT).show();
+                if (Cart.getShoppingCart().contains(movieList.get(position).getId())) {
+                    Cart.getShoppingCart().removeItemById(movieList.get(position).getId());
+                    //Toast.makeText(view.getContext(), "Removed from Cart", Toast.LENGTH_SHORT).show();
+                    holder.addToCart.setImageResource(R.drawable.ic_add_shopping_cart_black_24dp);
+                } else {
+                    Cart.getShoppingCart().addItem(movieList.get(position));
+                    //Toast.makeText(view.getContext(), "Added to Cart!", Toast.LENGTH_SHORT).show();
+                    holder.addToCart.setImageResource(R.drawable.ic_delete_black_24dp);
+                }
             }
         });
+    }
+
+    @Override
+    public void onViewAttachedToWindow(MovieViewHolder holder) {
+        if (Cart.getShoppingCart().contains(movieList.get(holder.getAdapterPosition()).getId())) {
+            holder.addToCart.setImageResource(R.drawable.ic_delete_black_24dp);
+        } else {
+            holder.addToCart.setImageResource(R.drawable.ic_add_shopping_cart_black_24dp);
+        }
+
+
     }
 
     @Override
     public int getItemCount() {
         return movieList.size();
     }
+
+
 
     public void setBoxArt (MovieViewHolder holder, int position) {
         switch (movieList.get(position).getId()) {

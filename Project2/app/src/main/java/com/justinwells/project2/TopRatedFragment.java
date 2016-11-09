@@ -31,9 +31,9 @@ public class TopRatedFragment extends Fragment {
                 new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        List<Movie>topRated = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getTopRated();
-
-        recyclerView.setAdapter(new MovieRecyclerViewAdapter(topRated));
+        final List<Movie>topRated = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getTopRated();
+        final MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter(topRated);
+        recyclerView.setAdapter(adapter);
 
         return rootView;
     }

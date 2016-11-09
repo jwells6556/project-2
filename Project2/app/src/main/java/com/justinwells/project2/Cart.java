@@ -31,12 +31,30 @@ public class Cart {
         moviesInCart.remove(position);
     }
 
+    public void removeItemById (int id) {
+        for (int i = 0; i < moviesInCart.size(); i++) {
+            if (moviesInCart.get(i).getId() == id) {
+                moviesInCart.remove(i);
+            }
+        }
+    }
+
     public void emptyCart () {
 
         for (int i = moviesInCart.size()-1; i > -1; i--) {
             moviesInCart.remove(i);
         }
 
+    }
+
+    public boolean contains (int id) {
+        for (int i = 0; i < moviesInCart.size(); i++) {
+
+            if (moviesInCart.get(i).getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Movie> getMoviesInCart () {

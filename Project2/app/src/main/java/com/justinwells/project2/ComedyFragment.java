@@ -29,7 +29,7 @@ public class ComedyFragment extends Fragment {
                 new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        List<Movie> funnyMovies = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getComedy();
+        final List<Movie> funnyMovies = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getComedy();
 
         recyclerView.setAdapter(new MovieRecyclerViewAdapter(funnyMovies));
 

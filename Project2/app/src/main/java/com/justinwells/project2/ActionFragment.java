@@ -29,9 +29,11 @@ public class ActionFragment extends Fragment {
                 new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        List<Movie> actionMovies = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getAction();
+        final List<Movie> actionMovies = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getAction();
 
         recyclerView.setAdapter(new MovieRecyclerViewAdapter(actionMovies));
 
         return rootView;    }
+
+
 }

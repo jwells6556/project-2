@@ -29,9 +29,16 @@ public class HorrorFragment extends Fragment {
                 new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        List<Movie> scaryMovies = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getHorror();
+        final List<Movie> scaryMovies = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getHorror();
 
         recyclerView.setAdapter(new MovieRecyclerViewAdapter(scaryMovies));
 
-        return rootView;      }
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 }
+
