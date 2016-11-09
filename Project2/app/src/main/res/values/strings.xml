@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Project2</string>
+    <string name="title_activity_main">Movies</string>
+    <string name="title_shopping_cart_activity">Your Cart</string>
+    <string name="title_detail_activity">Details</string>
+    <string name="title_checkout_activity">Checkout</string>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_checkout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.justinwells.project2.CheckoutActivity"
+    android:background="@color/backgroundColor">
+    <TextView
+        android:id="@+id/checkout_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@android:color/white"
+        android:text="Total: "/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_below="@id/checkout_total">
+
+        <EditText
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:shadowColor="@color/colorAccent"
+            android:inputType="text"
+            android:maxLines="1"
+            />
+        <EditText
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:shadowColor="@color/colorAccent"
+            android:inputType="text"
+            android:maxLines="1"
+            />
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Shipping Address"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:shadowColor="@color/colorAccent"
+            android:inputType="text"
+            android:maxLines="1"
+            />
+        <EditText
+            android:id="@+id/card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Card Number"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:shadowColor="@color/colorAccent"
+            android:inputType="number"
+            android:maxLines="1"
+            />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/pay_and_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/button"
+        android:text="finish and pay"
+        android:textColor="@android:color/white"/>
+
+
+</RelativeLayout>

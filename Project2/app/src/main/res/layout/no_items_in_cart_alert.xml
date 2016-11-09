@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:id="@+id/movie_card"  android:elevation="100dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cardview_dark_background"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/no_items_in_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO ITEMS IN CART"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"/>
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="back"
+            android:layout_below="@id/no_items_in_cart"
+            android:layout_centerHorizontal="true"/>
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
