@@ -138,7 +138,7 @@ public class MovieSQLiteOpenHelper extends SQLiteOpenHelper{
 
         Cursor cursor = db.query(TABLE_NAME, // a. table
                 MOVIE_COLUMNS, // b. column names
-                COL_TITLE + " LIKE ?", // c. selections
+                COL_TITLE +  " LIKE ?", // c. selections
                 new String[]{"%"+query+"%"}, // d. selections args
                 null, // e. group by
                 null, // f. having

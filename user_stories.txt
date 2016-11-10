@@ -1,0 +1,67 @@
+Justin Wells 
+Project 2
+User Stories
+
+********************************************************************************
+FEATURE:BROWSE BY GENRE ON HOME PAGE
+	-TabLayout shows different categories
+	-Tabs are clickable
+	-Tabs redirect to each genre
+	-Movies are displayed in RecyclerView
+*As a user, I am able to browse movies by category from the home screen.
+********************************************************************************
+FEATURE:VIEW DETAILS OF MOVIE WHEN SELECTED
+	-Movies are visible in RecyclerView
+	-Entire element of RecyclerView is selectable
+	-When selected MovieDetailActivity is started
+	-Data about movie is visible from activity
+*As a user, I am able to view more details about a movie by selecting it
+********************************************************************************
+FEATURE:ADD AND REMOVE ITEMS TO CART WHILE BROWSING
+	-Add/Remove button is visible in RecyclerView element
+	-Button is in add position when item is not in cart
+	-“Add to cart” icon is visible in add position
+	-Clicking button in add position adds item to cart
+	-Clicking button in add position changes button to remove position after add
+	-Button is in remove position when item is not in cart
+	-When button is in remove position, trash can icon is visible
+	-Clicking button in remove position removes item from cart
+	-Removing item from cart shifts button to add position
+*As a user, I am able to add and remove items in cart while browsing
+*******************************************************************************
+FEATURE:SHOPPING CART SCREEN
+	-ShoppingCart activity accessible by pressing fab with cart icon
+	-Items in cart stored in singleton class
+	-Items in cart are visible on shopping cart screen
+	-Items can be removed from shopping cart by clicking trash icon button
+	-Items removed from cart are no longer displayed on screen
+	-Total price is displayed on bottom of screen
+	-Total price adjusts as items are removed
+	-Text field displays when cart empty
+	-Button takes user to checkout activity
+	-Dialog created when user tries to checkout with no items
+*As a user I can access shopping cart screen
+*As a user I can see the contents of my cart
+*As a user I can remove items from my cart
+*As a user I can view my total price
+*As a user I am notified when my cart is empty
+*As a user I can proceed to checkout
+********************************************************************************
+FEATURE:CHECKOUT SCREEN
+	-CheckOut activity accessible by pressing button in cart
+	-Edittexts prompt user to fill out info
+	-Button submits info and empty cart
+	-Relocated from screen after payment
+	-Edit texts display error when empty
+	-Dialog thanks user 
+*As a user I can access Checkout screen
+*As a user I can enter my information
+*As a user I am notified if I didn’t enter info
+*As a user I can complete transaction
+*********************************************************************************
+FEATURE:SEARCH
+	-Search icon is selectable from toolbar
+	-Search icon redirects to search activity
+	-Displays list of movies containing part of search field
+*As a user I can search for a movie
+*********************************************************************************	

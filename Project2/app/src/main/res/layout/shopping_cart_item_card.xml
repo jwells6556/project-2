@@ -35,7 +35,7 @@ android:id="@+id/movie_card" android:layout_marginTop="16dp" android:elevation="
         android:layout_alignLeft="@id/title"
         android:text="GENRE: "
         android:textSize="20dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/subTextColor"
         />
 
     <TextView
