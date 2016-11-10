@@ -21,14 +21,24 @@
         </activity>
         <activity
             android:name=".ShoppingCart"
-            android:label="@string/title_shopping_cart_activity" />
+            android:label="@string/title_shopping_cart_activity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.justinwells.project2.MainActivity" />
+        </activity>
         <activity
             android:name=".MovieDetail"
-            android:label="@string/title_detail_activity" />
+            android:label="@string/title_detail_activity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.justinwells.project2.MainActivity" />
+        </activity>
         <activity
             android:name=".CheckoutActivity"
             android:label="@string/title_checkout_activity">
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.justinwells.project2.ShoppingCart" />
         </activity>
 
         <meta-data

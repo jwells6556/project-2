@@ -33,6 +33,8 @@ public class MovieDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         String movieDetailTitle = getIntent().getStringExtra("title");
         movie = MovieSQLiteOpenHelper.getInstance(this).getMovieByTitle(movieDetailTitle);
 
@@ -156,6 +158,16 @@ public class MovieDetail extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
 
 }
