@@ -22,6 +22,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 1: return new ActionFragment();
             case 2: return new HorrorFragment();
             case 3: return new ComedyFragment();
+            case 4: return null;
             default: return null;
         }
     }
@@ -38,6 +39,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 1: return "ACTION";
             case 2: return "HORROR";
             case 3: return "COMEDY";
+            case 4: return null;
             default: return null;
         }
     }

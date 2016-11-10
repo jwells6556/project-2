@@ -68,6 +68,17 @@ public class ShoppingCart extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         recyclerView.getAdapter().notifyDataSetChanged();
         resetPrice(Cart.getShoppingCart().getTotal());
+
+        final Dialog thankYou = new Dialog(this);
+        thankYou.setContentView(R.layout.thank_you_for_your_purchase);
+        Button button = (Button) thankYou.findViewById(R.id.back);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                thankYou.dismiss();
+            }
+        });
+        thankYou.show();
     }
 
     public static void resetPrice (int price) {

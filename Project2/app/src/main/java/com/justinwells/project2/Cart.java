@@ -17,14 +17,20 @@ public class Cart {
     }
 
     public static Cart getShoppingCart () {
+
         if (shoppingCart == null) {
             shoppingCart = new Cart();
         }
         return shoppingCart;
+
     }
 
     public void addItem (Movie movie) {
-        moviesInCart.add(movie);
+
+        if (!contains(movie.getId())) {
+            moviesInCart.add(movie);
+        }
+
     }
 
     public void removeItem (int position) {

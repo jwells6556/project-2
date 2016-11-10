@@ -33,6 +33,5 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
         addToCart = (ImageButton) itemView.findViewById(R.id.add_to_cart);
         movieCard = (CardView) itemView.findViewById(R.id.movie_card);
 
-
     }
 }

@@ -10,21 +10,41 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
-        <activity android:name=".ShoppingCart"
-                  android:label="@string/title_shopping_cart_activity"/>
-        <activity android:name=".MovieDetail"
-                  android:label="@string/title_detail_activity"/>
-        <activity android:name=".CheckoutActivity"
-                   android:label="@string/title_checkout_activity">
+        <activity
+            android:name=".ShoppingCart"
+            android:label="@string/title_shopping_cart_activity" />
+        <activity
+            android:name=".MovieDetail"
+            android:label="@string/title_detail_activity" />
+        <activity
+            android:name=".CheckoutActivity"
+            android:label="@string/title_checkout_activity">
 
+        </activity>
+
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value=".MySearchActivityName" />
+
+        <activity
+            android:name=".SearchableActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop"
+            android:label="Search">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         </activity>
     </application>
 

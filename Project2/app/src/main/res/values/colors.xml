@@ -6,4 +6,6 @@
     <color name="backgroundColor">@android:color/background_dark</color>
     <color name="cardColor">#424242</color>
     <color name= "buttonPressedColor">#D32F2F</color>
+    <color name="starColor">#FFA000</color>
+    <color name="subTextColor">#BDBDBD</color>
 </resources>

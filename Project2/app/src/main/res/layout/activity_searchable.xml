@@ -24,25 +24,24 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@color/backgroundColor"/>
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+    </android.support.design.widget.AppBarLayout>
+     <android.support.v7.widget.RecyclerView
+         android:id="@+id/search_results"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+     </android.support.v7.widget.RecyclerView>
+
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_shopping_cart_black_24dp"
+        android:src="@drawable/ic_arrow_back_black_24dp"
         android:tint="@android:color/white"/>
 
 </android.support.design.widget.CoordinatorLayout>
+

@@ -1,6 +1,7 @@
 package com.justinwells.project2.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHolder> {
-    public List <Movie>movieList = new ArrayList<>();
+    public List <Movie> movieList = new ArrayList<>();
 
     public MovieRecyclerViewAdapter(List<Movie> movieList) {
         this.movieList = movieList;
@@ -40,10 +41,25 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
 
     @Override
     public void onBindViewHolder(final MovieViewHolder holder, final int position) {
+
+        if (position + 1 == getItemCount()) {
+            setBottomMargin(holder.itemView, (int) (55 * Resources.getSystem().getDisplayMetrics().density));
+        } else {
+            setBottomMargin(holder.itemView, 0);
+        }
+
+        if (Cart.getShoppingCart().contains(movieList.get(position).getId())) {
+            holder.addToCart.setImageResource(R.drawable.ic_delete_black_24dp);
+        } else {
+            holder.addToCart.setImageResource(R.drawable.ic_add_shopping_cart_black_24dp);
+        }
+
+
         holder.title.setText(movieList.get(position).getTitle());
         holder.genre.setText(movieList.get(position).getGenre());
         holder.price.setText(movieList.get(position).getPrice());
         holder.boxArt.setImageDrawable(movieList.get(position).getPoster(holder.boxArt.getContext()));
+
 
         holder.movieCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +76,11 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
             public void onClick(View view) {
                 if (Cart.getShoppingCart().contains(movieList.get(position).getId())) {
                     Cart.getShoppingCart().removeItemById(movieList.get(position).getId());
-                    //Toast.makeText(view.getContext(), "Removed from Cart", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "Removed from Cart", Toast.LENGTH_SHORT).show();
                     holder.addToCart.setImageResource(R.drawable.ic_add_shopping_cart_black_24dp);
                 } else {
                     Cart.getShoppingCart().addItem(movieList.get(position));
-                    //Toast.makeText(view.getContext(), "Added to Cart!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "Added to Cart!", Toast.LENGTH_SHORT).show();
                     holder.addToCart.setImageResource(R.drawable.ic_delete_black_24dp);
                 }
             }
@@ -182,5 +198,18 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieViewHold
                 holder.boxArt.setImageResource(R.drawable.old_school);
                 break;
         }
+    }
+
+    public static void setBottomMargin(View view, int bottomMargin) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, bottomMargin);
+            view.requestLayout();
+        }
+    }
+
+    public void replaceData(List<Movie> newList){
+        movieList = newList;
+        notifyDataSetChanged();
     }
 }

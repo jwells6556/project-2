@@ -131,6 +131,42 @@ public class MovieSQLiteOpenHelper extends SQLiteOpenHelper{
 
         return movie;
     }
+
+    public List<Movie>searchMovies(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Movie> movieList = new ArrayList<>();
+
+        Cursor cursor = db.query(TABLE_NAME, // a. table
+                MOVIE_COLUMNS, // b. column names
+                COL_TITLE + " LIKE ?", // c. selections
+                new String[]{"%"+query+"%"}, // d. selections args
+                null, // e. group by
+                null, // f. having
+                null, // g. order by
+                null); // h. limit
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
+                String title = cursor.getString(cursor.getColumnIndex(COL_TITLE));
+                String genre = cursor.getString(cursor.getColumnIndex(COL_GENRE));
+                String price = cursor.getString(cursor.getColumnIndex(COL_PRICE));
+                int rating = cursor.getInt(cursor.getColumnIndex(COL_RATING));
+                String description = cursor.getString(cursor.getColumnIndex(COL_DESCRIPTION));
+                int release = cursor.getInt(cursor.getColumnIndex(COL_RELEASE));
+
+                movieList.add(new Movie(title, genre, price, id, rating,description,release));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        } else {
+            cursor.close();
+            return null;
+        }
+
+        return movieList;
+    }
+
     //returns list of movies with the highest ranking
     public List<Movie> getTopRated () {
         SQLiteDatabase db = getReadableDatabase();

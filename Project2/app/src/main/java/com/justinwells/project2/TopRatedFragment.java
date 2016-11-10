@@ -1,5 +1,6 @@
 package com.justinwells.project2;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,8 @@ import java.util.List;
  */
 
 public class TopRatedFragment extends Fragment {
+    Context context;
+    MovieRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -26,15 +29,25 @@ public class TopRatedFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_top_rated,container,false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.top_rated);
 
+        context = rootView.getContext();
 
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        final List<Movie>topRated = MovieSQLiteOpenHelper.getInstance(rootView.getContext()).getTopRated();
-        final MovieRecyclerViewAdapter adapter = new MovieRecyclerViewAdapter(topRated);
+        List<Movie>topRated = MovieSQLiteOpenHelper.getInstance(context).getTopRated();
+
+        adapter = new MovieRecyclerViewAdapter(topRated);
+
         recyclerView.setAdapter(adapter);
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        List<Movie>update = MovieSQLiteOpenHelper.getInstance(context).getTopRated();
+        adapter.replaceData(update);
+        super.onResume();
     }
 }
