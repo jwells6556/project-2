@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class MovieSQLiteOpenHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(CREATE_TABLE);
     }
 
@@ -67,37 +69,7 @@ public class MovieSQLiteOpenHelper extends SQLiteOpenHelper{
         this.onCreate(db);
     }
 
-    public Movie getMovie (int id) {
-        SQLiteDatabase db = getReadableDatabase();
-        Movie movie;
 
-        Cursor cursor = db.query(TABLE_NAME, // a. table
-                MOVIE_COLUMNS, // b. column names
-                COL_ID + " = ?", // c. selections
-                new String[]{String.valueOf(id)}, // d. selections args
-                null, // e. group by
-                null, // f. having
-                null, // g. order by
-                null); // h. limit
-
-        if (cursor.moveToFirst()) {
-
-                String title = cursor.getString(cursor.getColumnIndex(COL_TITLE));
-                String genre = cursor.getString(cursor.getColumnIndex(COL_GENRE));
-                String price = cursor.getString(cursor.getColumnIndex(COL_PRICE));
-                int rating = cursor.getInt(cursor.getColumnIndex(COL_RATING));
-                String description = cursor.getString(cursor.getColumnIndex(COL_DESCRIPTION));
-                int release = cursor.getInt(cursor.getColumnIndex(COL_RELEASE));
-
-                movie = new Movie(title, genre, price, id, rating,description,release);
-                cursor.close();
-        } else {
-            cursor.close();
-            return null;
-        }
-
-        return movie;
-    }
 
     public Movie getMovieByTitle (String title) {
         SQLiteDatabase db = getReadableDatabase();
@@ -317,40 +289,7 @@ public class MovieSQLiteOpenHelper extends SQLiteOpenHelper{
         return movieList;
     }
 
-    public List<Movie> getAllMovies () {
-        SQLiteDatabase db = getReadableDatabase();
-        List<Movie> movieList = new ArrayList<>();
 
-        Cursor cursor = db.query(TABLE_NAME, // a. table
-                MOVIE_COLUMNS, // b. column names
-                null, // c. selections
-                new String[]{String.valueOf(5)}, // d. selections args
-                null, // e. group by
-                null, // f. having
-                null, // g. order by
-                null); // h. limit
-
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
-                String title = cursor.getString(cursor.getColumnIndex(COL_TITLE));
-                String genre = cursor.getString(cursor.getColumnIndex(COL_GENRE));
-                String price = cursor.getString(cursor.getColumnIndex(COL_PRICE));
-                int rating = cursor.getInt(cursor.getColumnIndex(COL_RATING));
-                String description = cursor.getString(cursor.getColumnIndex(COL_DESCRIPTION));
-                int release = cursor.getInt(cursor.getColumnIndex(COL_RELEASE));
-
-                movieList.add(new Movie(title, genre, price, id, rating,description,release));
-                cursor.moveToNext();
-            }
-            cursor.close();
-        } else {
-            cursor.close();
-            return null;
-        }
-
-        return movieList;
-    }
 
 }
 

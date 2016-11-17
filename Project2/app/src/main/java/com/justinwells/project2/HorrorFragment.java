@@ -1,6 +1,7 @@
 package com.justinwells.project2;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,8 +20,9 @@ import java.util.List;
  */
 
 public class HorrorFragment extends Fragment {
-    MovieRecyclerViewAdapter adapter;
     Context context;
+    MovieRecyclerViewAdapter adapter;
+    List<Movie>scaryMovies;
 
     @Nullable
     @Override
@@ -34,18 +36,39 @@ public class HorrorFragment extends Fragment {
                 new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        final List<Movie> scaryMovies = MovieSQLiteOpenHelper.getInstance(context).getHorror();
+        fillHorrorList();
 
         adapter = new MovieRecyclerViewAdapter(scaryMovies);
+
         recyclerView.setAdapter(adapter);
 
         return rootView;
     }
 
+    private void fillHorrorList(){
+        AsyncTask<Void,Void,List<Movie>> task = new AsyncTask<Void, Void, List<Movie>>() {
+            @Override
+            protected List<Movie> doInBackground(Void... voids) {
+                return MovieSQLiteOpenHelper.getInstance(context).getHorror();
+            }
+
+            @Override
+            protected void onPostExecute(List<Movie> movies) {
+                super.onPostExecute(movies);
+                scaryMovies = movies;
+            }
+        };
+
+        task.execute();
+
+
+    }
+
+
     @Override
     public void onResume() {
-        List<Movie>update = MovieSQLiteOpenHelper.getInstance(context).getHorror();
-        adapter.replaceData(update);
+        fillHorrorList();
+        adapter.replaceData(scaryMovies);
         super.onResume();
     }
 }

@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -27,6 +28,7 @@ public class MovieDetail extends AppCompatActivity {
     boolean inCart;
     Movie movie;
     int id;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,7 @@ public class MovieDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String movieDetailTitle = getIntent().getStringExtra("title");
-        movie = MovieSQLiteOpenHelper.getInstance(this).getMovieByTitle(movieDetailTitle);
-
+        setMovie(movieDetailTitle);
         id = movie.getId();
 
         poster = (ImageView) findViewById(R.id.movie_poster_detail);
@@ -109,6 +110,23 @@ public class MovieDetail extends AppCompatActivity {
         });
 
 
+    }
+
+    public void setMovie (String title) {
+        AsyncTask<String,Void,Movie> task = new AsyncTask<String, Void, Movie>() {
+            @Override
+            protected Movie doInBackground(String... strings) {
+                return MovieSQLiteOpenHelper.getInstance(context).getMovieByTitle(strings[0]);
+            }
+
+            @Override
+            protected void onPostExecute(Movie returnMovie) {
+                super.onPostExecute(movie);
+                movie = returnMovie;
+            }
+        };
+
+        task.execute();
     }
 
     public void onNewIntent(Intent intent) {

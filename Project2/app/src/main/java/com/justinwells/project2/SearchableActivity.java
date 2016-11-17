@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import java.util.List;
 public class SearchableActivity extends AppCompatActivity {
     private RecyclerView searchResults;
     private MovieRecyclerViewAdapter adapter;
+    List<Movie>results;
+    Context context;
 
 
     @Override
@@ -34,6 +37,8 @@ public class SearchableActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        context = this;
 
         searchResults = (RecyclerView) findViewById(R.id.search_results);
 
@@ -57,6 +62,8 @@ public class SearchableActivity extends AppCompatActivity {
         handleIntent(getIntent());
     }
 
+
+
     @Override
     protected void onNewIntent(Intent intent) {
         setIntent(intent);
@@ -66,13 +73,30 @@ public class SearchableActivity extends AppCompatActivity {
     private void handleIntent (Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())){
             String query = intent.getStringExtra(SearchManager.QUERY);
-            List<Movie>results = MovieSQLiteOpenHelper.getInstance(this).searchMovies(query);
+            getResults(query);
 
             if (results != null) {
                 adapter.replaceData(results);
             }
 
         }
+    }
+
+    public void getResults(String query) {
+        AsyncTask <String, Void, List<Movie>> task = new AsyncTask<String, Void, List<Movie>>() {
+            @Override
+            protected List<Movie> doInBackground(String... strings) {
+                return MovieSQLiteOpenHelper.getInstance(context).searchMovies(strings[0]);
+            }
+
+            @Override
+            protected void onPostExecute(List<Movie> movies) {
+                results = movies;
+            }
+        };
+
+        task.execute(query);
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.justinwells.project2;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ActionFragment extends Fragment {
     Context context;
     MovieRecyclerViewAdapter adapter;
+    List<Movie>actionMovies;
 
     @Nullable
     @Override
@@ -34,7 +36,7 @@ public class ActionFragment extends Fragment {
                 new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        final List<Movie> actionMovies = MovieSQLiteOpenHelper.getInstance(context).getAction();
+        fillActionList();
 
         adapter = new MovieRecyclerViewAdapter(actionMovies);
 
@@ -43,12 +45,30 @@ public class ActionFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        List<Movie>update = MovieSQLiteOpenHelper.getInstance(context).getAction();
-        adapter.replaceData(update);
-        super.onResume();
+    private void fillActionList(){
+        AsyncTask<Void,Void,List<Movie>> task = new AsyncTask<Void, Void, List<Movie>>() {
+            @Override
+            protected List<Movie> doInBackground(Void... voids) {
+                return MovieSQLiteOpenHelper.getInstance(context).getAction();
+            }
+
+            @Override
+            protected void onPostExecute(List<Movie> movies) {
+                super.onPostExecute(movies);
+                actionMovies = movies;
+            }
+        };
+
+        task.execute();
+
+
     }
 
 
+    @Override
+    public void onResume() {
+        fillActionList();
+        adapter.replaceData(actionMovies);
+        super.onResume();
+    }
 }
